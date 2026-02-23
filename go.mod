@@ -6,6 +6,7 @@ require (
 	entgo.io/ent v0.14.5
 	github.com/go-kratos/kratos/v2 v2.9.2
 	github.com/google/wire v0.7.0
+	github.com/rs/cors v1.11.1
 	go.uber.org/automaxprocs v1.6.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20260217215200-42d3e9bedb6d
 	google.golang.org/grpc v1.79.1

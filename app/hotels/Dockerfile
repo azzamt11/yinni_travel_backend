@@ -1,24 +1,33 @@
-FROM golang:1.19 AS builder
+# ---------- Build stage ----------
+FROM golang:1.25.5 AS builder
 
-COPY . /src
 WORKDIR /src
+COPY . .
 
 RUN GOPROXY=https://goproxy.cn make build
 
+# ---------- Runtime stage ----------
 FROM debian:stable-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		ca-certificates  \
+        ca-certificates \
         netbase \
-        && rm -rf /var/lib/apt/lists/ \
-        && apt-get autoremove -y && apt-get autoclean -y
-
-COPY --from=builder /src/bin /app
+        gettext-base \
+        && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-EXPOSE 8000
-EXPOSE 9000
+COPY --from=builder /src/bin/hotels /app/server
+
+COPY ./configs /data/conf
+
+COPY app/hotels/hotels_dataset.json /app/hotels_dataset.json
+
+RUN chmod +x /app/server
+
+EXPOSE 8002
+EXPOSE 9002
+
 VOLUME /data/conf
 
 CMD ["./server", "-conf", "/data/conf"]
