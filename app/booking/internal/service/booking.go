@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	v1 "yinni-travel-backend/api/booking/v1"
-	"yinni-travel-backend/app/booking/internal/biz"
-	"yinni-travel-backend/pkg/middleware"
+	v1 "yinni_travel_backend/api/booking/v1"
+	"yinni_travel_backend/app/booking/internal/biz"
+	"yinni_travel_backend/pkg/middleware"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/timestamppb"

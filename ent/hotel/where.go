@@ -4,7 +4,7 @@ package hotel
 
 import (
 	"time"
-	"yinni-travel-backend/ent/predicate"
+	"yinni_travel_backend/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 )

@@ -9,9 +9,9 @@ import (
 	"log"
 	"reflect"
 
-	"yinni-travel-backend/ent/migrate"
+	"yinni_travel_backend/ent/migrate"
 
-	"yinni-travel-backend/ent/hotel"
+	"yinni_travel_backend/ent/hotel"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"

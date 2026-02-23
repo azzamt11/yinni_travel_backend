@@ -3,7 +3,7 @@ package data
 import (
 	"context"
 
-	"yinni-travel-backend/internal/biz"
+	"yinni_travel_backend/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )

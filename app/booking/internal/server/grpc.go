@@ -1,9 +1,9 @@
 package server
 
 import (
-	v1 "yinni-travel-backend/api/booking/v1"
-	"yinni-travel-backend/app/booking/internal/service"
-	"yinni-travel-backend/internal/conf"
+	v1 "yinni_travel_backend/api/booking/v1"
+	"yinni_travel_backend/app/booking/internal/service"
+	"yinni_travel_backend/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"

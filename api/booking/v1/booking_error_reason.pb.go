@@ -132,7 +132,7 @@ const file_booking_v1_booking_error_reason_proto_rawDesc = "" +
 	"\x1bBOOKING_JOB_ALREADY_RUNNING\x10\xa9F\x12\x1c\n" +
 	"\x17BOOKING_JOB_NOT_RUNNING\x10\xaaF\x12\x17\n" +
 	"\x12BOOKING_JOB_FAILED\x10\xabFB5\n" +
-	"\x0eapi.booking.v1P\x01Z!yinni-travel-backend/api/booking/v1;v1b\x06proto3"
+	"\x0eapi.booking.v1P\x01Z!yinni_travel_backend/api/booking/v1;v1b\x06proto3"
 
 var (
 	file_booking_v1_booking_error_reason_proto_rawDescOnce sync.Once

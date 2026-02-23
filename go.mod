@@ -1,4 +1,4 @@
-module yinni-travel-backend
+module yinni_travel_backend
 
 go 1.25.5
 

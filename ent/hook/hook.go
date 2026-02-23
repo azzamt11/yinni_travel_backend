@@ -5,7 +5,7 @@ package hook
 import (
 	"context"
 	"fmt"
-	"yinni-travel-backend/ent"
+	"yinni_travel_backend/ent"
 )
 
 // The HotelFunc type is an adapter to allow the use of ordinary

@@ -7,8 +7,8 @@ package ent
 
 import (
 	"time"
-	"yinni-travel-backend/ent/hotel"
-	"yinni-travel-backend/ent/schema"
+	"yinni_travel_backend/ent/hotel"
+	"yinni_travel_backend/ent/schema"
 )
 
 // The init function reads all schema descriptors with runtime code

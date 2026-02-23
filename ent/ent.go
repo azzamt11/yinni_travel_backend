@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"reflect"
 	"sync"
-	"yinni-travel-backend/ent/hotel"
+	"yinni_travel_backend/ent/hotel"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"

@@ -400,7 +400,7 @@ const file_api_booking_v1_booking_proto_rawDesc = "" +
 	"\aBooking\x12r\n" +
 	"\rCreateBooking\x12$.api.booking.v1.CreateBookingRequest\x1a\".api.booking.v1.CreateBookingReply\"\x17\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/v1/bookings\x12i\n" +
 	"\vSeeBookings\x12\".api.booking.v1.SeeBookingsRequest\x1a .api.booking.v1.SeeBookingsReply\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\f/v1/bookingsB5\n" +
-	"\x0eapi.booking.v1P\x01Z!yinni-travel-backend/api/booking/v1;v1b\x06proto3"
+	"\x0eapi.booking.v1P\x01Z!yinni_travel_backend/api/booking/v1;v1b\x06proto3"
 
 var (
 	file_api_booking_v1_booking_proto_rawDescOnce sync.Once

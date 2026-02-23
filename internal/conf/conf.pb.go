@@ -515,7 +515,7 @@ const file_internal_conf_conf_proto_rawDesc = "" +
 	"\n" +
 	"jwt_secret\x18\x01 \x01(\tR\tjwtSecret\x12\x1f\n" +
 	"\vjwt_expired\x18\x02 \x01(\x03R\n" +
-	"jwtExpiredB$Z\"yinni-travel-backend/internal/conf;confb\x06proto3"
+	"jwtExpiredB$Z\"yinni_travel_backend/internal/conf;confb\x06proto3"
 
 var (
 	file_internal_conf_conf_proto_rawDescOnce sync.Once

@@ -1627,7 +1627,7 @@ const file_hotels_v1_hotels_proto_rawDesc = "" +
 	"/v1/hotels\x12k\n" +
 	"\fSearchHotels\x12!.api.hotel.v1.SearchHotelsRequest\x1a\x1d.api.hotel.v1.ListHotelsReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/hotels/search\x12\x80\x01\n" +
 	"\x12SeedHotelsDatabase\x12'.api.hotel.v1.SeedHotelsDatabaseRequest\x1a%.api.hotel.v1.SeedHotelsDatabaseReply\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/hotels/seedB2\n" +
-	"\rapi.hotels.v1P\x01Z\x1fyinni-travel-backend/api/hotel/v1;v1b\x06proto3"
+	"\rapi.hotels.v1P\x01Z\x1fyinni_travel_backend/api/hotel/v1;v1b\x06proto3"
 
 var (
 	file_hotels_v1_hotels_proto_rawDescOnce sync.Once

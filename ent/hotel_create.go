@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"time"
-	"yinni-travel-backend/ent/hotel"
+	"yinni_travel_backend/ent/hotel"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"

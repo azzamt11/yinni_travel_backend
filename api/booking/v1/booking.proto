@@ -5,7 +5,7 @@ package api.booking.v1;
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "yinni-travel-backend/api/booking/v1;v1";
+option go_package = "yinni_travel_backend/api/booking/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.booking.v1";
 

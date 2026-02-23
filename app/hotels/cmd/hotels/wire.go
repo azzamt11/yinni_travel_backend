@@ -6,11 +6,11 @@
 package main
 
 import (
-	"yinni-travel-backend/app/hotels/internal/biz"
-	"yinni-travel-backend/app/hotels/internal/data"
-	"yinni-travel-backend/app/hotels/internal/server"
-	"yinni-travel-backend/app/hotels/internal/service"
-	"yinni-travel-backend/internal/conf"
+	"yinni_travel_backend/app/hotels/internal/biz"
+	"yinni_travel_backend/app/hotels/internal/data"
+	"yinni_travel_backend/app/hotels/internal/server"
+	"yinni_travel_backend/app/hotels/internal/service"
+	"yinni_travel_backend/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

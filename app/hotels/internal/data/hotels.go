@@ -10,9 +10,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"yinni-travel-backend/app/hotels/internal/biz"
-	"yinni-travel-backend/ent"
-	"yinni-travel-backend/ent/hotel"
+	"yinni_travel_backend/app/hotels/internal/biz"
+	"yinni_travel_backend/ent"
+	"yinni_travel_backend/ent/hotel"
 
 	"github.com/go-kratos/kratos/v2/log"
 )

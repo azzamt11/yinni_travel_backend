@@ -5,11 +5,11 @@ package enttest
 import (
 	"context"
 
-	"yinni-travel-backend/ent"
+	"yinni_travel_backend/ent"
 	// required by schema hooks.
-	_ "yinni-travel-backend/ent/runtime"
+	_ "yinni_travel_backend/ent/runtime"
 
-	"yinni-travel-backend/ent/migrate"
+	"yinni_travel_backend/ent/migrate"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	v1 "yinni-travel-backend/api/hotels/v1"
-	"yinni-travel-backend/app/hotels/internal/biz"
+	v1 "yinni_travel_backend/api/hotels/v1"
+	"yinni_travel_backend/app/hotels/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/timestamppb"

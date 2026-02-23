@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	v1 "yinni-travel-backend/api/booking/v1"
+	v1 "yinni_travel_backend/api/booking/v1"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"

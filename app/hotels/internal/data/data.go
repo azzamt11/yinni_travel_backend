@@ -2,8 +2,8 @@ package data
 
 import (
 	"context"
-	"yinni-travel-backend/ent"
-	"yinni-travel-backend/internal/conf"
+	"yinni_travel_backend/ent"
+	"yinni_travel_backend/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
