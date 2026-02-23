@@ -1,0 +1,200 @@
+syntax = "proto3";
+
+package api.hotel.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "trivgoo-backend/api/hotel/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.hotels.v1";
+
+service Hotel {
+	// Get hotel by ID
+	rpc GetHotel(GetHotelRequest) returns (HotelInfo) {
+		option (google.api.http) = {
+			get: "/v1/hotels/id/{id}"
+		};
+	}
+
+	// List hotels
+	rpc ListHotels(ListHotelsRequest) returns (ListHotelsReply) {
+		option (google.api.http) = {
+			get: "/v1/hotels"
+		};
+	}
+
+	// Search hotels
+	rpc SearchHotels(SearchHotelsRequest) returns (ListHotelsReply) {
+		option (google.api.http) = {
+			get: "/v1/hotels/search"
+		};
+	}
+}
+
+// ========== REQUEST MESSAGES ==========
+
+message GetHotelRequest {
+	int64 id = 1;
+}
+
+message ListHotelsRequest {
+	int32 page = 1;
+	int32 page_size = 2;
+	string category = 3;
+	string brand = 4;
+	string sub_category = 5;
+	int32 min_price = 6;
+	int32 max_price = 7;
+	float min_rating = 8;
+	bool in_stock = 9;
+	bool featured_only = 10;
+	string seller = 11;
+	string sort_by = 12;	// "price", "rating", "newest", "popular"
+	string sort_order = 13; // "asc", "desc"
+	string search_query = 14;
+}
+
+message SearchHotelsRequest {
+	string query = 1;
+	int32 limit = 2;
+	string category = 3;
+	PriceRange price_range = 4;
+}
+
+message GetFeaturedHotelsRequest {
+	int32 limit = 1;
+	string category = 2;
+}
+
+message GetSimilarHotelsRequest {
+	int64 id = 1;
+	int32 limit = 2;
+}
+
+message GenerateEmbeddingsRequest {
+	bool regenerate_all = 1;	// Whether to regenerate all embeddings
+	int32 batch_size = 2;		 // Batch size for processing
+	repeated int64 hotel_ids = 3;	// Specific hotels to process
+}
+
+message GetEmbeddingStatusRequest {
+	string job_id = 1;
+}
+
+message StartHotelSeedJobRequest {
+	bool clear_existing = 1;
+	int32 max_hotels = 2;	// 0 means seed all hotels from dataset
+	int32 batch_size = 3;		// 0 means default batch size
+}
+
+message GetHotelSeedJobStatusRequest {
+	string job_id = 1;
+}
+
+// ========== RESPONSE MESSAGES ==========
+
+message ListHotelsReply {
+	repeated HotelInfo hotels = 1;
+	int32 total = 2;
+	int32 page = 3;
+	int32 page_size = 4;
+}
+
+message GenerateEmbeddingsResponse {
+	string job_id = 1;
+	string status = 2;
+	int32 estimated_time_seconds = 3;
+	int32 total_hotels = 4;
+}
+
+message GetEmbeddingStatusResponse {
+	string job_id = 1;
+	string status = 2;	// "pending", "running", "completed", "failed", "cancelled"
+	int32 processed = 3;
+	int32 total = 4;
+	float progress = 5;	// 0.0 to 1.0
+	string error_message = 6;
+	google.protobuf.Timestamp started_at = 7;
+	google.protobuf.Timestamp last_updated = 8;
+	google.protobuf.Timestamp estimated_completion = 9;
+}
+
+message StartHotelSeedJobResponse {
+	string job_id = 1;
+	string status = 2;
+	int32 total_hotels = 3;
+	int32 estimated_time_seconds = 4;
+}
+
+message GetHotelSeedJobStatusResponse {
+	string job_id = 1;
+	string status = 2;	// "pending", "running", "completed", "failed", "cancelled"
+	int32 processed = 3;
+	int32 total = 4;
+	float progress = 5;	// 0.0 to 1.0
+	int32 seeded = 6;
+	int32 skipped = 7;
+	string error_message = 8;
+	google.protobuf.Timestamp started_at = 9;
+	google.protobuf.Timestamp last_updated = 10;
+	google.protobuf.Timestamp estimated_completion = 11;
+}
+
+// ========== DATA MESSAGES ==========
+
+message HotelInfo {
+	// Basic info
+	int64 id = 1;
+	string original_id = 2;
+	string title = 3;
+	string brand = 4;
+	string description = 5;
+	
+	// Pricing
+	double actual_price = 6;
+	double selling_price = 7;
+	string discount = 8;
+	int32 price_numeric = 9;
+	float discount_percentage = 10;
+	
+	// Categorization
+	string category = 11;
+	string sub_category = 12;
+	
+	// Stock & Seller
+	bool out_of_stock = 13;
+	string seller = 14;
+	
+	// Ratings
+	string average_rating = 15;
+	float rating_numeric = 16;
+	
+	// Media
+	repeated string images = 17;
+	string primary_image = 18;
+	
+	// Hotel details
+	map<string, string> hotel_details = 19;
+	
+	// URLs and identifiers
+	string url = 20;
+	string style_code = 22;
+	
+	// Timestamps
+	google.protobuf.Timestamp crawled_at = 23;
+	google.protobuf.Timestamp created_at = 24;
+	google.protobuf.Timestamp updated_at = 25;
+	
+	// Engagement metrics
+	int32 view_count = 26;
+	int32 click_count = 27;
+	bool featured = 28;
+}
+
+// ========== COMMON STRUCTURES ==========
+
+message PriceRange {
+	int32 min = 1;
+	int32 max = 2;
+}
