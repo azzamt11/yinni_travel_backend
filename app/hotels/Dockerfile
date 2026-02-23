@@ -25,8 +25,8 @@ COPY app/hotels/hotels_dataset.json /app/hotels_dataset.json
 
 RUN chmod +x /app/server
 
-EXPOSE 8002
-EXPOSE 9002
+EXPOSE 8201
+EXPOSE 9201
 
 VOLUME /data/conf
 

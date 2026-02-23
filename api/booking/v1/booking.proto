@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package api.booking.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "yinni-travel-backend/api/booking/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.booking.v1";
+
+service Booking {
+	rpc CreateBooking (CreateBookingRequest) returns (CreateBookingReply) {
+		option (google.api.http) = {
+			post: "/v1/bookings"
+			body: "*"
+		};
+	}
+
+	rpc SeeBookings (SeeBookingsRequest) returns (SeeBookingsReply) {
+		option (google.api.http) = {
+			get: "/v1/bookings"
+		};
+	}
+}
+
+message CreateBookingRequest {
+	int64 user_id = 1;
+	int64 hotel_id = 2;
+	google.protobuf.Timestamp booking_date_start = 3;
+	google.protobuf.Timestamp booking_date_end = 4;
+	double price = 5;
+	string name = 6;
+	int64 number_of_guests = 7;
+}
+
+message CreateBookingReply {
+	BookingInfo booking = 1;
+}
+
+message SeeBookingsRequest {
+	int64 user_id = 1;
+}
+
+message SeeBookingsReply {
+	repeated BookingInfo bookings = 1;
+}
+
+
+message BookingInfo {
+	int64 id = 1;
+	int64 user_id = 2;
+	int64 hotel_id = 3;
+	string name = 4;
+	google.protobuf.Timestamp booking_date_start = 5;
+	google.protobuf.Timestamp booking_date_end = 6;
+	double price = 7;
+	int64 number_of_guests = 8;
+	google.protobuf.Timestamp created_at = 9;
+	google.protobuf.Timestamp updated_at = 10;
+}

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"entgo.io/ent"
+	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
 	"entgo.io/ent/schema/index"
 	"entgo.io/ent/schema/mixin"
@@ -138,11 +139,7 @@ func (Hotel) Fields() []ent.Field {
 // Edges of the Hotel.
 func (Hotel) Edges() []ent.Edge {
 	return []ent.Edge{
-		// Add relationships here if needed
-		// For example:
-		// edge.To("category", Category.Type),
-		// edge.To("reviews", Review.Type),
-		// edge.To("similar_hotels", Hotel.Type),
+		edge.To("bookings", Booking.Type),
 	}
 }
 

@@ -7,16 +7,15 @@
 package main
 
 import (
+	"yinni-travel-backend/internal/biz"
+	"yinni-travel-backend/internal/conf"
+	"yinni-travel-backend/internal/data"
+	"yinni-travel-backend/internal/server"
+	"yinni-travel-backend/internal/service"
+
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
-	"trivgoo-backend/internal/biz"
-	"trivgoo-backend/internal/conf"
-	"trivgoo-backend/internal/data"
-	"trivgoo-backend/internal/server"
-	"trivgoo-backend/internal/service"
-)
 
-import (
 	_ "go.uber.org/automaxprocs"
 )
 

@@ -4,8 +4,8 @@ package ent
 
 import (
 	"context"
-	"trivgoo-backend/ent/hotel"
-	"trivgoo-backend/ent/predicate"
+	"yinni-travel-backend/ent/hotel"
+	"yinni-travel-backend/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

@@ -5,7 +5,7 @@ package api.hotel.v1;
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "trivgoo-backend/api/hotel/v1;v1";
+option go_package = "yinni-travel-backend/api/hotel/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.hotels.v1";
 
@@ -28,6 +28,14 @@ service Hotel {
 	rpc SearchHotels(SearchHotelsRequest) returns (ListHotelsReply) {
 		option (google.api.http) = {
 			get: "/v1/hotels/search"
+		};
+	}
+
+	// seed database
+	rpc SeedHotelsDatabase(SeedHotelsDatabaseRequest) returns (SeedHotelsDatabaseReply) {
+		option (google.api.http) = {
+			post: "/v1/hotels/seed"
+			body: "*"
 		};
 	}
 }
@@ -92,6 +100,12 @@ message GetHotelSeedJobStatusRequest {
 	string job_id = 1;
 }
 
+message SeedHotelsDatabaseRequest {
+	bool clear_existing = 1;
+	int32 max_hotels = 2;
+	string dataset_path = 3;
+}
+
 // ========== RESPONSE MESSAGES ==========
 
 message ListHotelsReply {
@@ -139,6 +153,13 @@ message GetHotelSeedJobStatusResponse {
 	google.protobuf.Timestamp started_at = 9;
 	google.protobuf.Timestamp last_updated = 10;
 	google.protobuf.Timestamp estimated_completion = 11;
+}
+
+message SeedHotelsDatabaseReply {
+	int32 seeded = 1;
+	int32 skipped = 2;
+	int32 total = 3;
+	string message = 4;
 }
 
 // ========== DATA MESSAGES ==========

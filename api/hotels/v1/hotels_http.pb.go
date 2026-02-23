@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-http v2.9.2
 // - protoc             v6.33.2
-// source: api/hotels/v1/hotels.proto
+// source: hotels/v1/hotels.proto
 
 package v1
 
@@ -22,6 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationHotelGetHotel = "/api.hotel.v1.Hotel/GetHotel"
 const OperationHotelListHotels = "/api.hotel.v1.Hotel/ListHotels"
 const OperationHotelSearchHotels = "/api.hotel.v1.Hotel/SearchHotels"
+const OperationHotelSeedHotelsDatabase = "/api.hotel.v1.Hotel/SeedHotelsDatabase"
 
 type HotelHTTPServer interface {
 	// GetHotel Get hotel by ID
@@ -30,6 +31,8 @@ type HotelHTTPServer interface {
 	ListHotels(context.Context, *ListHotelsRequest) (*ListHotelsReply, error)
 	// SearchHotels Search hotels
 	SearchHotels(context.Context, *SearchHotelsRequest) (*ListHotelsReply, error)
+	// SeedHotelsDatabase seed database
+	SeedHotelsDatabase(context.Context, *SeedHotelsDatabaseRequest) (*SeedHotelsDatabaseReply, error)
 }
 
 func RegisterHotelHTTPServer(s *http.Server, srv HotelHTTPServer) {
@@ -37,6 +40,7 @@ func RegisterHotelHTTPServer(s *http.Server, srv HotelHTTPServer) {
 	r.GET("/v1/hotels/id/{id}", _Hotel_GetHotel0_HTTP_Handler(srv))
 	r.GET("/v1/hotels", _Hotel_ListHotels0_HTTP_Handler(srv))
 	r.GET("/v1/hotels/search", _Hotel_SearchHotels0_HTTP_Handler(srv))
+	r.POST("/v1/hotels/seed", _Hotel_SeedHotelsDatabase0_HTTP_Handler(srv))
 }
 
 func _Hotel_GetHotel0_HTTP_Handler(srv HotelHTTPServer) func(ctx http.Context) error {
@@ -99,6 +103,28 @@ func _Hotel_SearchHotels0_HTTP_Handler(srv HotelHTTPServer) func(ctx http.Contex
 	}
 }
 
+func _Hotel_SeedHotelsDatabase0_HTTP_Handler(srv HotelHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in SeedHotelsDatabaseRequest
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationHotelSeedHotelsDatabase)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.SeedHotelsDatabase(ctx, req.(*SeedHotelsDatabaseRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*SeedHotelsDatabaseReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type HotelHTTPClient interface {
 	// GetHotel Get hotel by ID
 	GetHotel(ctx context.Context, req *GetHotelRequest, opts ...http.CallOption) (rsp *HotelInfo, err error)
@@ -106,6 +132,8 @@ type HotelHTTPClient interface {
 	ListHotels(ctx context.Context, req *ListHotelsRequest, opts ...http.CallOption) (rsp *ListHotelsReply, err error)
 	// SearchHotels Search hotels
 	SearchHotels(ctx context.Context, req *SearchHotelsRequest, opts ...http.CallOption) (rsp *ListHotelsReply, err error)
+	// SeedHotelsDatabase seed database
+	SeedHotelsDatabase(ctx context.Context, req *SeedHotelsDatabaseRequest, opts ...http.CallOption) (rsp *SeedHotelsDatabaseReply, err error)
 }
 
 type HotelHTTPClientImpl struct {
@@ -152,6 +180,20 @@ func (c *HotelHTTPClientImpl) SearchHotels(ctx context.Context, in *SearchHotels
 	opts = append(opts, http.Operation(OperationHotelSearchHotels))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// SeedHotelsDatabase seed database
+func (c *HotelHTTPClientImpl) SeedHotelsDatabase(ctx context.Context, in *SeedHotelsDatabaseRequest, opts ...http.CallOption) (*SeedHotelsDatabaseReply, error) {
+	var out SeedHotelsDatabaseReply
+	pattern := "/v1/hotels/seed"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationHotelSeedHotelsDatabase))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

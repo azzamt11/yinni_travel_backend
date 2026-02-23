@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	v1 "trivgoo-backend/api/hotels/v1"
-	"trivgoo-backend/app/hotels/internal/biz"
+	v1 "yinni-travel-backend/api/hotels/v1"
+	"yinni-travel-backend/app/hotels/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -21,8 +21,10 @@ func NewHotelsService(uc *biz.HotelsUsecase) *HotelsService {
 	return &HotelsService{uc: uc}
 }
 
-func (s *HotelsService) ListHotel(ctx context.Context, req *v1.ListHotelsRequest) (*v1.ListHotelsReply, error) {
-	s.log.WithContext(ctx).Infof("ListHotel called: page=%d, pageSize=%d", req.Page, req.PageSize)
+func (s *HotelsService) ListHotels(ctx context.Context, req *v1.ListHotelsRequest) (*v1.ListHotelsReply, error) {
+	if s.log != nil {
+		s.log.WithContext(ctx).Infof("ListHotels called: page=%d, pageSize=%d", req.Page, req.PageSize)
+	}
 
 	params := &biz.ListHotelsParams{
 		Page:        req.Page,
@@ -43,7 +45,9 @@ func (s *HotelsService) ListHotel(ctx context.Context, req *v1.ListHotelsRequest
 
 	hotels, total, err := s.uc.GetHotelsList(ctx, params)
 	if err != nil {
-		s.log.WithContext(ctx).Errorf("ListHotel failed: %v", err)
+		if s.log != nil {
+			s.log.WithContext(ctx).Errorf("ListHotels failed: %v", err)
+		}
 		return nil, err
 	}
 
@@ -53,6 +57,28 @@ func (s *HotelsService) ListHotel(ctx context.Context, req *v1.ListHotelsRequest
 		Page:     req.Page,
 		PageSize: req.PageSize,
 	}, nil
+}
+
+func (s *HotelsService) SeedHotelsDatabase(ctx context.Context, req *v1.SeedHotelsDatabaseRequest) (*v1.SeedHotelsDatabaseReply, error) {
+	result, err := s.uc.SeedHotelsDatabase(ctx, &biz.SeedHotelsParams{
+		ClearExisting: req.GetClearExisting(),
+		MaxHotels:     req.GetMaxHotels(),
+		DatasetPath:   req.GetDatasetPath(),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &v1.SeedHotelsDatabaseReply{
+		Seeded:  result.Seeded,
+		Skipped: result.Skipped,
+		Total:   result.Total,
+		Message: result.Message,
+	}, nil
+}
+
+// ListHotel keeps backward compatibility with older callers.
+func (s *HotelsService) ListHotel(ctx context.Context, req *v1.ListHotelsRequest) (*v1.ListHotelsReply, error) {
+	return s.ListHotels(ctx, req)
 }
 
 func (s *HotelsService) convertToHotelsList(hotels []*biz.Hotel) []*v1.HotelInfo {

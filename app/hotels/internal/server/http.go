@@ -1,9 +1,10 @@
 package server
 
 import (
-	v1 "trivgoo-backend/api/hotels/v1"
-	"trivgoo-backend/app/hotels/internal/service"
-	"trivgoo-backend/internal/conf"
+	v1 "yinni-travel-backend/api/hotels/v1"
+	"yinni-travel-backend/app/hotels/internal/service"
+	"yinni-travel-backend/internal/conf"
+	"yinni-travel-backend/pkg/middleware"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
@@ -25,8 +26,7 @@ func NewHTTPServer(c *conf.Server, authConf *conf.Auth, hotels *service.HotelsSe
 		http.Middleware(
 			recovery.Recovery(),
 			logging.Server(logger),
-			// middleware.JWT(authConf.JwtSecret),
-			// middleware.Admin(authConf.JwtSecret),
+			middleware.JWT(authConf.JwtSecret),
 		),
 		http.Filter(corsHandler.Handler),
 	}

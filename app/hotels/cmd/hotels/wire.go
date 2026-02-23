@@ -6,11 +6,11 @@
 package main
 
 import (
-	"trivgoo-backend/app/hotels/internal/biz"
-	"trivgoo-backend/app/hotels/internal/data"
-	"trivgoo-backend/app/hotels/internal/server"
-	"trivgoo-backend/app/hotels/internal/service"
-	"trivgoo-backend/internal/conf"
+	"yinni-travel-backend/app/hotels/internal/biz"
+	"yinni-travel-backend/app/hotels/internal/data"
+	"yinni-travel-backend/app/hotels/internal/server"
+	"yinni-travel-backend/app/hotels/internal/service"
+	"yinni-travel-backend/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

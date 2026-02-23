@@ -2,10 +2,17 @@ package data
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
-	"trivgoo-backend/app/hotels/internal/biz"
-	"trivgoo-backend/ent"
-	"trivgoo-backend/ent/hotel"
+	"time"
+	"yinni-travel-backend/app/hotels/internal/biz"
+	"yinni-travel-backend/ent"
+	"yinni-travel-backend/ent/hotel"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -135,4 +142,294 @@ func (r *hotelsRepo) GetHotelsList(ctx context.Context, params *biz.ListHotelsPa
 		})
 	}
 	return rv, int64(total), nil
+}
+
+func (r *hotelsRepo) SeedHotelsDatabase(ctx context.Context, params *biz.SeedHotelsParams) (*biz.SeedHotelsResult, error) {
+	datasetPath := strings.TrimSpace(params.DatasetPath)
+	if datasetPath == "" {
+		datasetPath = resolveDatasetPath()
+	}
+
+	raw, err := os.ReadFile(datasetPath)
+	if err != nil {
+		return nil, fmt.Errorf("read dataset %q: %w", datasetPath, err)
+	}
+
+	var rows []map[string]any
+	if err := json.Unmarshal(raw, &rows); err != nil {
+		return nil, fmt.Errorf("parse dataset json: %w", err)
+	}
+
+	if params.ClearExisting {
+		if _, err := r.data.ent.Hotel.Delete().Exec(ctx); err != nil {
+			return nil, fmt.Errorf("clear hotels: %w", err)
+		}
+	}
+
+	total := len(rows)
+	limit := total
+	if params.MaxHotels > 0 && int(params.MaxHotels) < total {
+		limit = int(params.MaxHotels)
+	}
+
+	var seeded, skipped int32
+	for i := 0; i < limit; i++ {
+		item := rows[i]
+		origID := getString(item, "_id", "original_id", "id")
+		pid := getString(item, "pid", "product_id", "hotel_id")
+		title := getString(item, "title", "name")
+		brand := getString(item, "brand")
+		category := getString(item, "category")
+		subCategory := getString(item, "sub_category", "subcategory")
+
+		if origID == "" && pid == "" {
+			origID = fmt.Sprintf("row-%d", i+1)
+			pid = origID
+		}
+		if origID == "" {
+			origID = pid
+		}
+		if pid == "" {
+			pid = origID
+		}
+		if title == "" {
+			title = "Untitled Hotel"
+		}
+		if brand == "" {
+			brand = "Unknown"
+		}
+		if category == "" {
+			category = "uncategorized"
+		}
+		if subCategory == "" {
+			subCategory = "general"
+		}
+
+		exists, err := r.data.ent.Hotel.Query().
+			Where(hotel.Or(hotel.OriginalIDEQ(origID), hotel.PidEQ(pid))).
+			Exist(ctx)
+		if err != nil {
+			return nil, err
+		}
+		if exists {
+			skipped++
+			continue
+		}
+
+		actualPrice := float32(getFloat(item, "actual_price", "actualPrice", "mrp"))
+		sellingPrice := float32(getFloat(item, "selling_price", "sellingPrice", "price"))
+		if sellingPrice == 0 && actualPrice > 0 {
+			sellingPrice = actualPrice
+		}
+		priceNumeric := int(getFloat(item, "price_numeric"))
+		if priceNumeric == 0 {
+			priceNumeric = int(sellingPrice)
+		}
+		ratingNumeric := getFloat(item, "rating_numeric")
+		if ratingNumeric == 0 {
+			ratingNumeric = getFloat(item, "rating")
+		}
+
+		create := r.data.ent.Hotel.Create().
+			SetOriginalID(origID).
+			SetPid(pid).
+			SetTitle(title).
+			SetBrand(brand).
+			SetCategory(category).
+			SetSubCategory(subCategory).
+			SetDescription(getString(item, "description")).
+			SetActualPrice(actualPrice).
+			SetSellingPrice(sellingPrice).
+			SetDiscount(getString(item, "discount")).
+			SetOutOfStock(getBool(item, "out_of_stock", "outOfStock")).
+			SetSeller(getString(item, "seller")).
+			SetAverageRating(getString(item, "average_rating", "averageRating")).
+			SetImage(getString(item, "image", "primary_image")).
+			SetURL(getString(item, "url")).
+			SetStyleCode(getString(item, "style_code", "styleCode")).
+			SetPriceNumeric(priceNumeric).
+			SetRatingNumeric(ratingNumeric).
+			SetFeatured(getBool(item, "featured")).
+			SetViewCount(int(getFloat(item, "view_count", "viewCount"))).
+			SetClickCount(int(getFloat(item, "click_count", "clickCount"))).
+			SetSearchKeywords(getStringSlice(item, "search_keywords")).
+			SetCrawledAt(time.Now())
+
+		if details := getDetails(item, "hotel_details"); len(details) > 0 {
+			create = create.SetHotelDetails(details)
+		}
+		if emb := getFloat32Slice(item, "embedding"); len(emb) > 0 {
+			create = create.SetEmbedding(emb)
+		}
+
+		if _, err := create.Save(ctx); err != nil {
+			// skip invalid/duplicate rows and continue seeding
+			r.log.WithContext(ctx).Warnf("skip row %d (%s): %v", i+1, pid, err)
+			skipped++
+			continue
+		}
+		seeded++
+	}
+
+	return &biz.SeedHotelsResult{
+		Seeded:  seeded,
+		Skipped: skipped,
+		Total:   int32(limit),
+		Message: fmt.Sprintf("seed complete from %s", datasetPath),
+	}, nil
+}
+
+func resolveDatasetPath() string {
+	if p := os.Getenv("HOTELS_DATASET_PATH"); strings.TrimSpace(p) != "" {
+		return p
+	}
+	candidates := []string{
+		"/app/hotels_dataset.json",
+		"./hotels_dataset.json",
+		"app/hotels/hotels_dataset.json",
+		filepath.Join("..", "..", "hotels_dataset.json"),
+	}
+	for _, p := range candidates {
+		if _, err := os.Stat(p); err == nil {
+			return p
+		}
+	}
+	return "app/hotels/hotels_dataset.json"
+}
+
+func getString(m map[string]any, keys ...string) string {
+	for _, k := range keys {
+		v, ok := m[k]
+		if !ok || v == nil {
+			continue
+		}
+		switch t := v.(type) {
+		case string:
+			if s := strings.TrimSpace(t); s != "" {
+				return s
+			}
+		case json.Number:
+			return t.String()
+		case float64:
+			return strconv.FormatFloat(t, 'f', -1, 64)
+		case int:
+			return strconv.Itoa(t)
+		}
+	}
+	return ""
+}
+
+var nonNumber = regexp.MustCompile(`[^0-9.\-]+`)
+
+func getFloat(m map[string]any, keys ...string) float64 {
+	for _, k := range keys {
+		v, ok := m[k]
+		if !ok || v == nil {
+			continue
+		}
+		switch t := v.(type) {
+		case float64:
+			return t
+		case float32:
+			return float64(t)
+		case int:
+			return float64(t)
+		case int64:
+			return float64(t)
+		case json.Number:
+			f, _ := t.Float64()
+			return f
+		case string:
+			clean := nonNumber.ReplaceAllString(t, "")
+			if clean == "" {
+				continue
+			}
+			f, err := strconv.ParseFloat(clean, 64)
+			if err == nil {
+				return f
+			}
+		}
+	}
+	return 0
+}
+
+func getBool(m map[string]any, keys ...string) bool {
+	for _, k := range keys {
+		v, ok := m[k]
+		if !ok || v == nil {
+			continue
+		}
+		switch t := v.(type) {
+		case bool:
+			return t
+		case string:
+			return strings.EqualFold(t, "true") || t == "1" || strings.EqualFold(t, "yes")
+		case float64:
+			return t != 0
+		}
+	}
+	return false
+}
+
+func getStringSlice(m map[string]any, key string) []string {
+	v, ok := m[key]
+	if !ok || v == nil {
+		return nil
+	}
+	arr, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]string, 0, len(arr))
+	for _, item := range arr {
+		if s, ok := item.(string); ok && s != "" {
+			out = append(out, s)
+		}
+	}
+	return out
+}
+
+func getFloat32Slice(m map[string]any, key string) []float32 {
+	v, ok := m[key]
+	if !ok || v == nil {
+		return nil
+	}
+	arr, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	out := make([]float32, 0, len(arr))
+	for _, item := range arr {
+		switch t := item.(type) {
+		case float64:
+			out = append(out, float32(t))
+		case float32:
+			out = append(out, t)
+		}
+	}
+	return out
+}
+
+func getDetails(m map[string]any, key string) []map[string]string {
+	v, ok := m[key]
+	if !ok || v == nil {
+		return nil
+	}
+	arr, ok := v.([]any)
+	if !ok {
+		return nil
+	}
+	result := make([]map[string]string, 0, len(arr))
+	for _, item := range arr {
+		obj, ok := item.(map[string]any)
+		if !ok {
+			continue
+		}
+		flat := make(map[string]string, len(obj))
+		for k, val := range obj {
+			flat[k] = fmt.Sprintf("%v", val)
+		}
+		result = append(result, flat)
+	}
+	return result
 }

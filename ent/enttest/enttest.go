@@ -5,11 +5,11 @@ package enttest
 import (
 	"context"
 
-	"trivgoo-backend/ent"
+	"yinni-travel-backend/ent"
 	// required by schema hooks.
-	_ "trivgoo-backend/ent/runtime"
+	_ "yinni-travel-backend/ent/runtime"
 
-	"trivgoo-backend/ent/migrate"
+	"yinni-travel-backend/ent/migrate"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

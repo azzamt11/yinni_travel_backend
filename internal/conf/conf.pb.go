@@ -7,12 +7,13 @@
 package conf
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	durationpb "google.golang.org/protobuf/types/known/durationpb"
 )
 
 const (
@@ -514,7 +515,7 @@ const file_internal_conf_conf_proto_rawDesc = "" +
 	"\n" +
 	"jwt_secret\x18\x01 \x01(\tR\tjwtSecret\x12\x1f\n" +
 	"\vjwt_expired\x18\x02 \x01(\x03R\n" +
-	"jwtExpiredB$Z\"trivgoo-backend/internal/conf;confb\x06proto3"
+	"jwtExpiredB$Z\"yinni-travel-backend/internal/conf;confb\x06proto3"
 
 var (
 	file_internal_conf_conf_proto_rawDescOnce sync.Once

@@ -10,9 +10,11 @@ ifeq ($(GOHOSTOS), windows)
 	Git_Bash=$(subst \,/,$(subst cmd\,bin\bash.exe,$(dir $(shell where git))))
 	INTERNAL_PROTO_FILES=$(shell $(Git_Bash) -c "find internal -name *.proto")
 	API_PROTO_FILES=$(shell $(Git_Bash) -c "find api -name *.proto")
+	PROTOC_GEN_JS=./tools/js/node_modules/protoc-gen-js/bin/protoc-gen-js.exe
 else
 	INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
 	API_PROTO_FILES=$(shell find api -name *.proto)
+	PROTOC_GEN_JS=./tools/js/node_modules/.bin/protoc-gen-js
 endif
 
 .PHONY: init
@@ -24,6 +26,11 @@ init:
 	go install github.com/go-kratos/kratos/cmd/protoc-gen-go-http/v2@latest
 	go install github.com/google/gnostic/cmd/protoc-gen-openapi@latest
 	go install github.com/google/wire/cmd/wire@latest
+
+.PHONY: init-js
+# init js proto tooling
+init-js:
+	cd tools/js && npm ci
 
 .PHONY: config
 # generate internal proto
@@ -43,6 +50,15 @@ api:
  	       --go-grpc_out=paths=source_relative:./api \
 	       --openapi_out=fq_schema_naming=true,default_response=false:. \
 	       $(API_PROTO_FILES)
+
+.PHONY: api-js
+# generate auth js proto
+api-js:
+	protoc --proto_path=./api \
+	       --proto_path=./third_party \
+	       --plugin=protoc-gen-js=$(PROTOC_GEN_JS) \
+	       --js_out=import_style=commonjs,binary:./api \
+	       auth/v1/auth.proto
 
 .PHONY: build
 # build

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.0
 // - protoc             v6.33.2
-// source: api/hotels/v1/hotels.proto
+// source: hotels/v1/hotels.proto
 
 package v1
 
@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Hotel_GetHotel_FullMethodName     = "/api.hotel.v1.Hotel/GetHotel"
-	Hotel_ListHotels_FullMethodName   = "/api.hotel.v1.Hotel/ListHotels"
-	Hotel_SearchHotels_FullMethodName = "/api.hotel.v1.Hotel/SearchHotels"
+	Hotel_GetHotel_FullMethodName           = "/api.hotel.v1.Hotel/GetHotel"
+	Hotel_ListHotels_FullMethodName         = "/api.hotel.v1.Hotel/ListHotels"
+	Hotel_SearchHotels_FullMethodName       = "/api.hotel.v1.Hotel/SearchHotels"
+	Hotel_SeedHotelsDatabase_FullMethodName = "/api.hotel.v1.Hotel/SeedHotelsDatabase"
 )
 
 // HotelClient is the client API for Hotel service.
@@ -34,6 +35,8 @@ type HotelClient interface {
 	ListHotels(ctx context.Context, in *ListHotelsRequest, opts ...grpc.CallOption) (*ListHotelsReply, error)
 	// Search hotels
 	SearchHotels(ctx context.Context, in *SearchHotelsRequest, opts ...grpc.CallOption) (*ListHotelsReply, error)
+	// seed database
+	SeedHotelsDatabase(ctx context.Context, in *SeedHotelsDatabaseRequest, opts ...grpc.CallOption) (*SeedHotelsDatabaseReply, error)
 }
 
 type hotelClient struct {
@@ -74,6 +77,16 @@ func (c *hotelClient) SearchHotels(ctx context.Context, in *SearchHotelsRequest,
 	return out, nil
 }
 
+func (c *hotelClient) SeedHotelsDatabase(ctx context.Context, in *SeedHotelsDatabaseRequest, opts ...grpc.CallOption) (*SeedHotelsDatabaseReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SeedHotelsDatabaseReply)
+	err := c.cc.Invoke(ctx, Hotel_SeedHotelsDatabase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // HotelServer is the server API for Hotel service.
 // All implementations must embed UnimplementedHotelServer
 // for forward compatibility.
@@ -84,6 +97,8 @@ type HotelServer interface {
 	ListHotels(context.Context, *ListHotelsRequest) (*ListHotelsReply, error)
 	// Search hotels
 	SearchHotels(context.Context, *SearchHotelsRequest) (*ListHotelsReply, error)
+	// seed database
+	SeedHotelsDatabase(context.Context, *SeedHotelsDatabaseRequest) (*SeedHotelsDatabaseReply, error)
 	mustEmbedUnimplementedHotelServer()
 }
 
@@ -102,6 +117,9 @@ func (UnimplementedHotelServer) ListHotels(context.Context, *ListHotelsRequest) 
 }
 func (UnimplementedHotelServer) SearchHotels(context.Context, *SearchHotelsRequest) (*ListHotelsReply, error) {
 	return nil, status.Error(codes.Unimplemented, "method SearchHotels not implemented")
+}
+func (UnimplementedHotelServer) SeedHotelsDatabase(context.Context, *SeedHotelsDatabaseRequest) (*SeedHotelsDatabaseReply, error) {
+	return nil, status.Error(codes.Unimplemented, "method SeedHotelsDatabase not implemented")
 }
 func (UnimplementedHotelServer) mustEmbedUnimplementedHotelServer() {}
 func (UnimplementedHotelServer) testEmbeddedByValue()               {}
@@ -178,6 +196,24 @@ func _Hotel_SearchHotels_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Hotel_SeedHotelsDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SeedHotelsDatabaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HotelServer).SeedHotelsDatabase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Hotel_SeedHotelsDatabase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HotelServer).SeedHotelsDatabase(ctx, req.(*SeedHotelsDatabaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Hotel_ServiceDesc is the grpc.ServiceDesc for Hotel service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -197,7 +233,11 @@ var Hotel_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "SearchHotels",
 			Handler:    _Hotel_SearchHotels_Handler,
 		},
+		{
+			MethodName: "SeedHotelsDatabase",
+			Handler:    _Hotel_SeedHotelsDatabase_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/hotels/v1/hotels.proto",
+	Metadata: "hotels/v1/hotels.proto",
 }

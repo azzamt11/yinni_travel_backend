@@ -1,0 +1,14 @@
+{
+  "name": "yinni-travel-auth-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node ./index.js -conf ./configs",
+    "dev": "node --watch ./index.js -conf ./configs"
+  },
+  "dependencies": {
+    "google-protobuf": "^3.21.4",
+    "js-yaml": "^4.1.0"
+  }
+}

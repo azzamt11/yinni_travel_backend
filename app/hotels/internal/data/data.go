@@ -1,8 +1,9 @@
 package data
 
 import (
-	"trivgoo-backend/ent"
-	"trivgoo-backend/internal/conf"
+	"context"
+	"yinni-travel-backend/ent"
+	"yinni-travel-backend/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -18,8 +19,18 @@ type Data struct {
 
 // NewData .
 func NewData(c *conf.Data) (*Data, func(), error) {
+	client, err := ent.Open(c.Database.Driver, c.Database.Source)
+	if err != nil {
+		return nil, nil, err
+	}
+	if err := client.Schema.Create(context.Background()); err != nil {
+		_ = client.Close()
+		return nil, nil, err
+	}
+
 	cleanup := func() {
 		log.Info("closing the data resources")
+		_ = client.Close()
 	}
-	return &Data{}, cleanup, nil
+	return &Data{ent: client}, cleanup, nil
 }

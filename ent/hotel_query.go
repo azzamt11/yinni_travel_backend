@@ -6,8 +6,8 @@ import (
 	"context"
 	"fmt"
 	"math"
-	"trivgoo-backend/ent/hotel"
-	"trivgoo-backend/ent/predicate"
+	"yinni-travel-backend/ent/hotel"
+	"yinni-travel-backend/ent/predicate"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"

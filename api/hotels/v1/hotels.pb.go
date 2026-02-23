@@ -2,18 +2,19 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.2
-// source: api/hotels/v1/hotels.proto
+// source: hotels/v1/hotels.proto
 
 package v1
 
 import (
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
+
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
 )
 
 const (
@@ -32,7 +33,7 @@ type GetHotelRequest struct {
 
 func (x *GetHotelRequest) Reset() {
 	*x = GetHotelRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[0]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +45,7 @@ func (x *GetHotelRequest) String() string {
 func (*GetHotelRequest) ProtoMessage() {}
 
 func (x *GetHotelRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[0]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +58,7 @@ func (x *GetHotelRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetHotelRequest.ProtoReflect.Descriptor instead.
 func (*GetHotelRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{0}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *GetHotelRequest) GetId() int64 {
@@ -89,7 +90,7 @@ type ListHotelsRequest struct {
 
 func (x *ListHotelsRequest) Reset() {
 	*x = ListHotelsRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[1]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -101,7 +102,7 @@ func (x *ListHotelsRequest) String() string {
 func (*ListHotelsRequest) ProtoMessage() {}
 
 func (x *ListHotelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[1]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -114,7 +115,7 @@ func (x *ListHotelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListHotelsRequest.ProtoReflect.Descriptor instead.
 func (*ListHotelsRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{1}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ListHotelsRequest) GetPage() int32 {
@@ -227,7 +228,7 @@ type SearchHotelsRequest struct {
 
 func (x *SearchHotelsRequest) Reset() {
 	*x = SearchHotelsRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[2]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -239,7 +240,7 @@ func (x *SearchHotelsRequest) String() string {
 func (*SearchHotelsRequest) ProtoMessage() {}
 
 func (x *SearchHotelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[2]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -252,7 +253,7 @@ func (x *SearchHotelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchHotelsRequest.ProtoReflect.Descriptor instead.
 func (*SearchHotelsRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{2}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SearchHotelsRequest) GetQuery() string {
@@ -293,7 +294,7 @@ type GetFeaturedHotelsRequest struct {
 
 func (x *GetFeaturedHotelsRequest) Reset() {
 	*x = GetFeaturedHotelsRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[3]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -305,7 +306,7 @@ func (x *GetFeaturedHotelsRequest) String() string {
 func (*GetFeaturedHotelsRequest) ProtoMessage() {}
 
 func (x *GetFeaturedHotelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[3]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -318,7 +319,7 @@ func (x *GetFeaturedHotelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetFeaturedHotelsRequest.ProtoReflect.Descriptor instead.
 func (*GetFeaturedHotelsRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{3}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetFeaturedHotelsRequest) GetLimit() int32 {
@@ -345,7 +346,7 @@ type GetSimilarHotelsRequest struct {
 
 func (x *GetSimilarHotelsRequest) Reset() {
 	*x = GetSimilarHotelsRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[4]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -357,7 +358,7 @@ func (x *GetSimilarHotelsRequest) String() string {
 func (*GetSimilarHotelsRequest) ProtoMessage() {}
 
 func (x *GetSimilarHotelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[4]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -370,7 +371,7 @@ func (x *GetSimilarHotelsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSimilarHotelsRequest.ProtoReflect.Descriptor instead.
 func (*GetSimilarHotelsRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{4}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetSimilarHotelsRequest) GetId() int64 {
@@ -398,7 +399,7 @@ type GenerateEmbeddingsRequest struct {
 
 func (x *GenerateEmbeddingsRequest) Reset() {
 	*x = GenerateEmbeddingsRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[5]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -410,7 +411,7 @@ func (x *GenerateEmbeddingsRequest) String() string {
 func (*GenerateEmbeddingsRequest) ProtoMessage() {}
 
 func (x *GenerateEmbeddingsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[5]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -423,7 +424,7 @@ func (x *GenerateEmbeddingsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GenerateEmbeddingsRequest.ProtoReflect.Descriptor instead.
 func (*GenerateEmbeddingsRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{5}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GenerateEmbeddingsRequest) GetRegenerateAll() bool {
@@ -456,7 +457,7 @@ type GetEmbeddingStatusRequest struct {
 
 func (x *GetEmbeddingStatusRequest) Reset() {
 	*x = GetEmbeddingStatusRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[6]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -468,7 +469,7 @@ func (x *GetEmbeddingStatusRequest) String() string {
 func (*GetEmbeddingStatusRequest) ProtoMessage() {}
 
 func (x *GetEmbeddingStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[6]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -481,7 +482,7 @@ func (x *GetEmbeddingStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEmbeddingStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetEmbeddingStatusRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{6}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetEmbeddingStatusRequest) GetJobId() string {
@@ -502,7 +503,7 @@ type StartHotelSeedJobRequest struct {
 
 func (x *StartHotelSeedJobRequest) Reset() {
 	*x = StartHotelSeedJobRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[7]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -514,7 +515,7 @@ func (x *StartHotelSeedJobRequest) String() string {
 func (*StartHotelSeedJobRequest) ProtoMessage() {}
 
 func (x *StartHotelSeedJobRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[7]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -527,7 +528,7 @@ func (x *StartHotelSeedJobRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartHotelSeedJobRequest.ProtoReflect.Descriptor instead.
 func (*StartHotelSeedJobRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{7}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *StartHotelSeedJobRequest) GetClearExisting() bool {
@@ -560,7 +561,7 @@ type GetHotelSeedJobStatusRequest struct {
 
 func (x *GetHotelSeedJobStatusRequest) Reset() {
 	*x = GetHotelSeedJobStatusRequest{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[8]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -572,7 +573,7 @@ func (x *GetHotelSeedJobStatusRequest) String() string {
 func (*GetHotelSeedJobStatusRequest) ProtoMessage() {}
 
 func (x *GetHotelSeedJobStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[8]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -585,12 +586,72 @@ func (x *GetHotelSeedJobStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetHotelSeedJobStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetHotelSeedJobStatusRequest) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{8}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetHotelSeedJobStatusRequest) GetJobId() string {
 	if x != nil {
 		return x.JobId
+	}
+	return ""
+}
+
+type SeedHotelsDatabaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ClearExisting bool                   `protobuf:"varint,1,opt,name=clear_existing,json=clearExisting,proto3" json:"clear_existing,omitempty"`
+	MaxHotels     int32                  `protobuf:"varint,2,opt,name=max_hotels,json=maxHotels,proto3" json:"max_hotels,omitempty"`
+	DatasetPath   string                 `protobuf:"bytes,3,opt,name=dataset_path,json=datasetPath,proto3" json:"dataset_path,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SeedHotelsDatabaseRequest) Reset() {
+	*x = SeedHotelsDatabaseRequest{}
+	mi := &file_hotels_v1_hotels_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SeedHotelsDatabaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SeedHotelsDatabaseRequest) ProtoMessage() {}
+
+func (x *SeedHotelsDatabaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_hotels_v1_hotels_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SeedHotelsDatabaseRequest.ProtoReflect.Descriptor instead.
+func (*SeedHotelsDatabaseRequest) Descriptor() ([]byte, []int) {
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *SeedHotelsDatabaseRequest) GetClearExisting() bool {
+	if x != nil {
+		return x.ClearExisting
+	}
+	return false
+}
+
+func (x *SeedHotelsDatabaseRequest) GetMaxHotels() int32 {
+	if x != nil {
+		return x.MaxHotels
+	}
+	return 0
+}
+
+func (x *SeedHotelsDatabaseRequest) GetDatasetPath() string {
+	if x != nil {
+		return x.DatasetPath
 	}
 	return ""
 }
@@ -607,7 +668,7 @@ type ListHotelsReply struct {
 
 func (x *ListHotelsReply) Reset() {
 	*x = ListHotelsReply{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[9]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -619,7 +680,7 @@ func (x *ListHotelsReply) String() string {
 func (*ListHotelsReply) ProtoMessage() {}
 
 func (x *ListHotelsReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[9]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -632,7 +693,7 @@ func (x *ListHotelsReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListHotelsReply.ProtoReflect.Descriptor instead.
 func (*ListHotelsReply) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{9}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *ListHotelsReply) GetHotels() []*HotelInfo {
@@ -675,7 +736,7 @@ type GenerateEmbeddingsResponse struct {
 
 func (x *GenerateEmbeddingsResponse) Reset() {
 	*x = GenerateEmbeddingsResponse{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[10]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -687,7 +748,7 @@ func (x *GenerateEmbeddingsResponse) String() string {
 func (*GenerateEmbeddingsResponse) ProtoMessage() {}
 
 func (x *GenerateEmbeddingsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[10]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -700,7 +761,7 @@ func (x *GenerateEmbeddingsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GenerateEmbeddingsResponse.ProtoReflect.Descriptor instead.
 func (*GenerateEmbeddingsResponse) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{10}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GenerateEmbeddingsResponse) GetJobId() string {
@@ -748,7 +809,7 @@ type GetEmbeddingStatusResponse struct {
 
 func (x *GetEmbeddingStatusResponse) Reset() {
 	*x = GetEmbeddingStatusResponse{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[11]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -760,7 +821,7 @@ func (x *GetEmbeddingStatusResponse) String() string {
 func (*GetEmbeddingStatusResponse) ProtoMessage() {}
 
 func (x *GetEmbeddingStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[11]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -773,7 +834,7 @@ func (x *GetEmbeddingStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEmbeddingStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetEmbeddingStatusResponse) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{11}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetEmbeddingStatusResponse) GetJobId() string {
@@ -851,7 +912,7 @@ type StartHotelSeedJobResponse struct {
 
 func (x *StartHotelSeedJobResponse) Reset() {
 	*x = StartHotelSeedJobResponse{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[12]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -863,7 +924,7 @@ func (x *StartHotelSeedJobResponse) String() string {
 func (*StartHotelSeedJobResponse) ProtoMessage() {}
 
 func (x *StartHotelSeedJobResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[12]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -876,7 +937,7 @@ func (x *StartHotelSeedJobResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StartHotelSeedJobResponse.ProtoReflect.Descriptor instead.
 func (*StartHotelSeedJobResponse) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{12}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *StartHotelSeedJobResponse) GetJobId() string {
@@ -926,7 +987,7 @@ type GetHotelSeedJobStatusResponse struct {
 
 func (x *GetHotelSeedJobStatusResponse) Reset() {
 	*x = GetHotelSeedJobStatusResponse{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[13]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -938,7 +999,7 @@ func (x *GetHotelSeedJobStatusResponse) String() string {
 func (*GetHotelSeedJobStatusResponse) ProtoMessage() {}
 
 func (x *GetHotelSeedJobStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[13]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -951,7 +1012,7 @@ func (x *GetHotelSeedJobStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetHotelSeedJobStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetHotelSeedJobStatusResponse) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{13}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *GetHotelSeedJobStatusResponse) GetJobId() string {
@@ -1031,6 +1092,74 @@ func (x *GetHotelSeedJobStatusResponse) GetEstimatedCompletion() *timestamppb.Ti
 	return nil
 }
 
+type SeedHotelsDatabaseReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Seeded        int32                  `protobuf:"varint,1,opt,name=seeded,proto3" json:"seeded,omitempty"`
+	Skipped       int32                  `protobuf:"varint,2,opt,name=skipped,proto3" json:"skipped,omitempty"`
+	Total         int32                  `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+	Message       string                 `protobuf:"bytes,4,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SeedHotelsDatabaseReply) Reset() {
+	*x = SeedHotelsDatabaseReply{}
+	mi := &file_hotels_v1_hotels_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SeedHotelsDatabaseReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SeedHotelsDatabaseReply) ProtoMessage() {}
+
+func (x *SeedHotelsDatabaseReply) ProtoReflect() protoreflect.Message {
+	mi := &file_hotels_v1_hotels_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SeedHotelsDatabaseReply.ProtoReflect.Descriptor instead.
+func (*SeedHotelsDatabaseReply) Descriptor() ([]byte, []int) {
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *SeedHotelsDatabaseReply) GetSeeded() int32 {
+	if x != nil {
+		return x.Seeded
+	}
+	return 0
+}
+
+func (x *SeedHotelsDatabaseReply) GetSkipped() int32 {
+	if x != nil {
+		return x.Skipped
+	}
+	return 0
+}
+
+func (x *SeedHotelsDatabaseReply) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+func (x *SeedHotelsDatabaseReply) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 type HotelInfo struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Basic info
@@ -1076,7 +1205,7 @@ type HotelInfo struct {
 
 func (x *HotelInfo) Reset() {
 	*x = HotelInfo{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[14]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1088,7 +1217,7 @@ func (x *HotelInfo) String() string {
 func (*HotelInfo) ProtoMessage() {}
 
 func (x *HotelInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[14]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1101,7 +1230,7 @@ func (x *HotelInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HotelInfo.ProtoReflect.Descriptor instead.
 func (*HotelInfo) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{14}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *HotelInfo) GetId() int64 {
@@ -1303,7 +1432,7 @@ type PriceRange struct {
 
 func (x *PriceRange) Reset() {
 	*x = PriceRange{}
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[15]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1315,7 +1444,7 @@ func (x *PriceRange) String() string {
 func (*PriceRange) ProtoMessage() {}
 
 func (x *PriceRange) ProtoReflect() protoreflect.Message {
-	mi := &file_api_hotels_v1_hotels_proto_msgTypes[15]
+	mi := &file_hotels_v1_hotels_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1328,7 +1457,7 @@ func (x *PriceRange) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PriceRange.ProtoReflect.Descriptor instead.
 func (*PriceRange) Descriptor() ([]byte, []int) {
-	return file_api_hotels_v1_hotels_proto_rawDescGZIP(), []int{15}
+	return file_hotels_v1_hotels_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *PriceRange) GetMin() int32 {
@@ -1345,11 +1474,11 @@ func (x *PriceRange) GetMax() int32 {
 	return 0
 }
 
-var File_api_hotels_v1_hotels_proto protoreflect.FileDescriptor
+var File_hotels_v1_hotels_proto protoreflect.FileDescriptor
 
-const file_api_hotels_v1_hotels_proto_rawDesc = "" +
+const file_hotels_v1_hotels_proto_rawDesc = "" +
 	"\n" +
-	"\x1aapi/hotels/v1/hotels.proto\x12\fapi.hotel.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"!\n" +
+	"\x16hotels/v1/hotels.proto\x12\fapi.hotel.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"!\n" +
 	"\x0fGetHotelRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"\xa5\x03\n" +
 	"\x11ListHotelsRequest\x12\x12\n" +
@@ -1396,7 +1525,12 @@ const file_api_hotels_v1_hotels_proto_rawDesc = "" +
 	"\n" +
 	"batch_size\x18\x03 \x01(\x05R\tbatchSize\"5\n" +
 	"\x1cGetHotelSeedJobStatusRequest\x12\x15\n" +
-	"\x06job_id\x18\x01 \x01(\tR\x05jobId\"\x89\x01\n" +
+	"\x06job_id\x18\x01 \x01(\tR\x05jobId\"\x84\x01\n" +
+	"\x19SeedHotelsDatabaseRequest\x12%\n" +
+	"\x0eclear_existing\x18\x01 \x01(\bR\rclearExisting\x12\x1d\n" +
+	"\n" +
+	"max_hotels\x18\x02 \x01(\x05R\tmaxHotels\x12!\n" +
+	"\fdataset_path\x18\x03 \x01(\tR\vdatasetPath\"\x89\x01\n" +
 	"\x0fListHotelsReply\x12/\n" +
 	"\x06hotels\x18\x01 \x03(\v2\x17.api.hotel.v1.HotelInfoR\x06hotels\x12\x14\n" +
 	"\x05total\x18\x02 \x01(\x05R\x05total\x12\x12\n" +
@@ -1436,7 +1570,12 @@ const file_api_hotels_v1_hotels_proto_rawDesc = "" +
 	"started_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tstartedAt\x12=\n" +
 	"\flast_updated\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\vlastUpdated\x12M\n" +
-	"\x14estimated_completion\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\x13estimatedCompletion\"\x97\b\n" +
+	"\x14estimated_completion\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\x13estimatedCompletion\"{\n" +
+	"\x17SeedHotelsDatabaseReply\x12\x16\n" +
+	"\x06seeded\x18\x01 \x01(\x05R\x06seeded\x12\x18\n" +
+	"\askipped\x18\x02 \x01(\x05R\askipped\x12\x14\n" +
+	"\x05total\x18\x03 \x01(\x05R\x05total\x12\x18\n" +
+	"\amessage\x18\x04 \x01(\tR\amessage\"\x97\b\n" +
 	"\tHotelInfo\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1f\n" +
 	"\voriginal_id\x18\x02 \x01(\tR\n" +
@@ -1480,29 +1619,30 @@ const file_api_hotels_v1_hotels_proto_rawDesc = "" +
 	"\n" +
 	"PriceRange\x12\x10\n" +
 	"\x03min\x18\x01 \x01(\x05R\x03min\x12\x10\n" +
-	"\x03max\x18\x02 \x01(\x05R\x03max2\xb6\x02\n" +
+	"\x03max\x18\x02 \x01(\x05R\x03max2\xb9\x03\n" +
 	"\x05Hotel\x12^\n" +
 	"\bGetHotel\x12\x1d.api.hotel.v1.GetHotelRequest\x1a\x17.api.hotel.v1.HotelInfo\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/v1/hotels/id/{id}\x12`\n" +
 	"\n" +
 	"ListHotels\x12\x1f.api.hotel.v1.ListHotelsRequest\x1a\x1d.api.hotel.v1.ListHotelsReply\"\x12\x82\xd3\xe4\x93\x02\f\x12\n" +
 	"/v1/hotels\x12k\n" +
-	"\fSearchHotels\x12!.api.hotel.v1.SearchHotelsRequest\x1a\x1d.api.hotel.v1.ListHotelsReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/hotels/searchB2\n" +
-	"\rapi.hotels.v1P\x01Z\x1ftrivgoo-backend/api/hotel/v1;v1b\x06proto3"
+	"\fSearchHotels\x12!.api.hotel.v1.SearchHotelsRequest\x1a\x1d.api.hotel.v1.ListHotelsReply\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/v1/hotels/search\x12\x80\x01\n" +
+	"\x12SeedHotelsDatabase\x12'.api.hotel.v1.SeedHotelsDatabaseRequest\x1a%.api.hotel.v1.SeedHotelsDatabaseReply\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/hotels/seedB2\n" +
+	"\rapi.hotels.v1P\x01Z\x1fyinni-travel-backend/api/hotel/v1;v1b\x06proto3"
 
 var (
-	file_api_hotels_v1_hotels_proto_rawDescOnce sync.Once
-	file_api_hotels_v1_hotels_proto_rawDescData []byte
+	file_hotels_v1_hotels_proto_rawDescOnce sync.Once
+	file_hotels_v1_hotels_proto_rawDescData []byte
 )
 
-func file_api_hotels_v1_hotels_proto_rawDescGZIP() []byte {
-	file_api_hotels_v1_hotels_proto_rawDescOnce.Do(func() {
-		file_api_hotels_v1_hotels_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_hotels_v1_hotels_proto_rawDesc), len(file_api_hotels_v1_hotels_proto_rawDesc)))
+func file_hotels_v1_hotels_proto_rawDescGZIP() []byte {
+	file_hotels_v1_hotels_proto_rawDescOnce.Do(func() {
+		file_hotels_v1_hotels_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_hotels_v1_hotels_proto_rawDesc), len(file_hotels_v1_hotels_proto_rawDesc)))
 	})
-	return file_api_hotels_v1_hotels_proto_rawDescData
+	return file_hotels_v1_hotels_proto_rawDescData
 }
 
-var file_api_hotels_v1_hotels_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
-var file_api_hotels_v1_hotels_proto_goTypes = []any{
+var file_hotels_v1_hotels_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_hotels_v1_hotels_proto_goTypes = []any{
 	(*GetHotelRequest)(nil),               // 0: api.hotel.v1.GetHotelRequest
 	(*ListHotelsRequest)(nil),             // 1: api.hotel.v1.ListHotelsRequest
 	(*SearchHotelsRequest)(nil),           // 2: api.hotel.v1.SearchHotelsRequest
@@ -1512,62 +1652,66 @@ var file_api_hotels_v1_hotels_proto_goTypes = []any{
 	(*GetEmbeddingStatusRequest)(nil),     // 6: api.hotel.v1.GetEmbeddingStatusRequest
 	(*StartHotelSeedJobRequest)(nil),      // 7: api.hotel.v1.StartHotelSeedJobRequest
 	(*GetHotelSeedJobStatusRequest)(nil),  // 8: api.hotel.v1.GetHotelSeedJobStatusRequest
-	(*ListHotelsReply)(nil),               // 9: api.hotel.v1.ListHotelsReply
-	(*GenerateEmbeddingsResponse)(nil),    // 10: api.hotel.v1.GenerateEmbeddingsResponse
-	(*GetEmbeddingStatusResponse)(nil),    // 11: api.hotel.v1.GetEmbeddingStatusResponse
-	(*StartHotelSeedJobResponse)(nil),     // 12: api.hotel.v1.StartHotelSeedJobResponse
-	(*GetHotelSeedJobStatusResponse)(nil), // 13: api.hotel.v1.GetHotelSeedJobStatusResponse
-	(*HotelInfo)(nil),                     // 14: api.hotel.v1.HotelInfo
-	(*PriceRange)(nil),                    // 15: api.hotel.v1.PriceRange
-	nil,                                   // 16: api.hotel.v1.HotelInfo.HotelDetailsEntry
-	(*timestamppb.Timestamp)(nil),         // 17: google.protobuf.Timestamp
+	(*SeedHotelsDatabaseRequest)(nil),     // 9: api.hotel.v1.SeedHotelsDatabaseRequest
+	(*ListHotelsReply)(nil),               // 10: api.hotel.v1.ListHotelsReply
+	(*GenerateEmbeddingsResponse)(nil),    // 11: api.hotel.v1.GenerateEmbeddingsResponse
+	(*GetEmbeddingStatusResponse)(nil),    // 12: api.hotel.v1.GetEmbeddingStatusResponse
+	(*StartHotelSeedJobResponse)(nil),     // 13: api.hotel.v1.StartHotelSeedJobResponse
+	(*GetHotelSeedJobStatusResponse)(nil), // 14: api.hotel.v1.GetHotelSeedJobStatusResponse
+	(*SeedHotelsDatabaseReply)(nil),       // 15: api.hotel.v1.SeedHotelsDatabaseReply
+	(*HotelInfo)(nil),                     // 16: api.hotel.v1.HotelInfo
+	(*PriceRange)(nil),                    // 17: api.hotel.v1.PriceRange
+	nil,                                   // 18: api.hotel.v1.HotelInfo.HotelDetailsEntry
+	(*timestamppb.Timestamp)(nil),         // 19: google.protobuf.Timestamp
 }
-var file_api_hotels_v1_hotels_proto_depIdxs = []int32{
-	15, // 0: api.hotel.v1.SearchHotelsRequest.price_range:type_name -> api.hotel.v1.PriceRange
-	14, // 1: api.hotel.v1.ListHotelsReply.hotels:type_name -> api.hotel.v1.HotelInfo
-	17, // 2: api.hotel.v1.GetEmbeddingStatusResponse.started_at:type_name -> google.protobuf.Timestamp
-	17, // 3: api.hotel.v1.GetEmbeddingStatusResponse.last_updated:type_name -> google.protobuf.Timestamp
-	17, // 4: api.hotel.v1.GetEmbeddingStatusResponse.estimated_completion:type_name -> google.protobuf.Timestamp
-	17, // 5: api.hotel.v1.GetHotelSeedJobStatusResponse.started_at:type_name -> google.protobuf.Timestamp
-	17, // 6: api.hotel.v1.GetHotelSeedJobStatusResponse.last_updated:type_name -> google.protobuf.Timestamp
-	17, // 7: api.hotel.v1.GetHotelSeedJobStatusResponse.estimated_completion:type_name -> google.protobuf.Timestamp
-	16, // 8: api.hotel.v1.HotelInfo.hotel_details:type_name -> api.hotel.v1.HotelInfo.HotelDetailsEntry
-	17, // 9: api.hotel.v1.HotelInfo.crawled_at:type_name -> google.protobuf.Timestamp
-	17, // 10: api.hotel.v1.HotelInfo.created_at:type_name -> google.protobuf.Timestamp
-	17, // 11: api.hotel.v1.HotelInfo.updated_at:type_name -> google.protobuf.Timestamp
+var file_hotels_v1_hotels_proto_depIdxs = []int32{
+	17, // 0: api.hotel.v1.SearchHotelsRequest.price_range:type_name -> api.hotel.v1.PriceRange
+	16, // 1: api.hotel.v1.ListHotelsReply.hotels:type_name -> api.hotel.v1.HotelInfo
+	19, // 2: api.hotel.v1.GetEmbeddingStatusResponse.started_at:type_name -> google.protobuf.Timestamp
+	19, // 3: api.hotel.v1.GetEmbeddingStatusResponse.last_updated:type_name -> google.protobuf.Timestamp
+	19, // 4: api.hotel.v1.GetEmbeddingStatusResponse.estimated_completion:type_name -> google.protobuf.Timestamp
+	19, // 5: api.hotel.v1.GetHotelSeedJobStatusResponse.started_at:type_name -> google.protobuf.Timestamp
+	19, // 6: api.hotel.v1.GetHotelSeedJobStatusResponse.last_updated:type_name -> google.protobuf.Timestamp
+	19, // 7: api.hotel.v1.GetHotelSeedJobStatusResponse.estimated_completion:type_name -> google.protobuf.Timestamp
+	18, // 8: api.hotel.v1.HotelInfo.hotel_details:type_name -> api.hotel.v1.HotelInfo.HotelDetailsEntry
+	19, // 9: api.hotel.v1.HotelInfo.crawled_at:type_name -> google.protobuf.Timestamp
+	19, // 10: api.hotel.v1.HotelInfo.created_at:type_name -> google.protobuf.Timestamp
+	19, // 11: api.hotel.v1.HotelInfo.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 12: api.hotel.v1.Hotel.GetHotel:input_type -> api.hotel.v1.GetHotelRequest
 	1,  // 13: api.hotel.v1.Hotel.ListHotels:input_type -> api.hotel.v1.ListHotelsRequest
 	2,  // 14: api.hotel.v1.Hotel.SearchHotels:input_type -> api.hotel.v1.SearchHotelsRequest
-	14, // 15: api.hotel.v1.Hotel.GetHotel:output_type -> api.hotel.v1.HotelInfo
-	9,  // 16: api.hotel.v1.Hotel.ListHotels:output_type -> api.hotel.v1.ListHotelsReply
-	9,  // 17: api.hotel.v1.Hotel.SearchHotels:output_type -> api.hotel.v1.ListHotelsReply
-	15, // [15:18] is the sub-list for method output_type
-	12, // [12:15] is the sub-list for method input_type
+	9,  // 15: api.hotel.v1.Hotel.SeedHotelsDatabase:input_type -> api.hotel.v1.SeedHotelsDatabaseRequest
+	16, // 16: api.hotel.v1.Hotel.GetHotel:output_type -> api.hotel.v1.HotelInfo
+	10, // 17: api.hotel.v1.Hotel.ListHotels:output_type -> api.hotel.v1.ListHotelsReply
+	10, // 18: api.hotel.v1.Hotel.SearchHotels:output_type -> api.hotel.v1.ListHotelsReply
+	15, // 19: api.hotel.v1.Hotel.SeedHotelsDatabase:output_type -> api.hotel.v1.SeedHotelsDatabaseReply
+	16, // [16:20] is the sub-list for method output_type
+	12, // [12:16] is the sub-list for method input_type
 	12, // [12:12] is the sub-list for extension type_name
 	12, // [12:12] is the sub-list for extension extendee
 	0,  // [0:12] is the sub-list for field type_name
 }
 
-func init() { file_api_hotels_v1_hotels_proto_init() }
-func file_api_hotels_v1_hotels_proto_init() {
-	if File_api_hotels_v1_hotels_proto != nil {
+func init() { file_hotels_v1_hotels_proto_init() }
+func file_hotels_v1_hotels_proto_init() {
+	if File_hotels_v1_hotels_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_hotels_v1_hotels_proto_rawDesc), len(file_api_hotels_v1_hotels_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_hotels_v1_hotels_proto_rawDesc), len(file_hotels_v1_hotels_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_hotels_v1_hotels_proto_goTypes,
-		DependencyIndexes: file_api_hotels_v1_hotels_proto_depIdxs,
-		MessageInfos:      file_api_hotels_v1_hotels_proto_msgTypes,
+		GoTypes:           file_hotels_v1_hotels_proto_goTypes,
+		DependencyIndexes: file_hotels_v1_hotels_proto_depIdxs,
+		MessageInfos:      file_hotels_v1_hotels_proto_msgTypes,
 	}.Build()
-	File_api_hotels_v1_hotels_proto = out.File
-	file_api_hotels_v1_hotels_proto_goTypes = nil
-	file_api_hotels_v1_hotels_proto_depIdxs = nil
+	File_hotels_v1_hotels_proto = out.File
+	file_hotels_v1_hotels_proto_goTypes = nil
+	file_hotels_v1_hotels_proto_depIdxs = nil
 }

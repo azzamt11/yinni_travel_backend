@@ -1,0 +1,90 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: yinni-travel-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-yinni-travel_db}
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  auth:
+    build:
+      context: .
+      dockerfile: app/auth/Dockerfile
+    container_name: yinni-travel-auth
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      KRATOS_SERVER_HTTP_ADDR: "0.0.0.0:${AUTH_HTTP_PORT:-8200}"
+      KRATOS_SERVER_GRPC_ADDR: "0.0.0.0:${AUTH_GRPC_PORT:-9200}"
+      KRATOS_AUTH_JWT_SECRET: ${JWT_SECRET:-no-secret}
+      KRATOS_AUTH_JWT_EXPIRE: ${JWT_EXPIRE:-3600}
+      KRATOS_DATA_DATABASE_SOURCE: ${DB_SOURCE:-root:root@tcp(mysql:3306)/yinni-travel_db?parseTime=true&charset=utf8mb4&loc=Local}
+    ports:
+      - "${AUTH_HTTP_PORT:-8200}:8200"
+      - "${AUTH_GRPC_PORT:-9200}:9200"
+    volumes:
+      - ./app/auth/configs:/data/conf:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  hotels:
+    build:
+      context: .
+      dockerfile: app/hotels/Dockerfile
+    container_name: yinni-travel-hotels
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      KRATOS_SERVER_HTTP_ADDR: "0.0.0.0:${HOTELS_HTTP_PORT:-8201}"
+      KRATOS_SERVER_GRPC_ADDR: "0.0.0.0:${HOTELS_GRPC_PORT:-9201}"
+      KRATOS_AUTH_JWT_SECRET: ${JWT_SECRET:-no-secret}
+      KRATOS_AUTH_JWT_EXPIRE: ${JWT_EXPIRE:-3600}
+      KRATOS_DATA_DATABASE_SOURCE: ${DB_SOURCE:-root:root@tcp(mysql:3306)/yinni-travel_db?parseTime=true&charset=utf8mb4&loc=Local}
+    ports:
+      - "${HOTELS_HTTP_PORT:-8201}:8201"
+      - "${HOTELS_GRPC_PORT:-9201}:9201"
+    volumes:
+      - ./app/hotels/configs:/data/conf:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  booking:
+    build:
+      context: .
+      dockerfile: app/booking/Dockerfile
+    container_name: yinni-travel-booking
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      KRATOS_SERVER_HTTP_ADDR: "0.0.0.0:${BOOKING_HTTP_PORT:-8202}"
+      KRATOS_SERVER_GRPC_ADDR: "0.0.0.0:${BOOKING_GRPC_PORT:-9202}"
+      KRATOS_AUTH_JWT_SECRET: ${JWT_SECRET:-no-secret}
+      KRATOS_AUTH_JWT_EXPIRE: ${JWT_EXPIRE:-3600}
+      KRATOS_DATA_DATABASE_SOURCE: ${DB_SOURCE:-root:root@tcp(mysql:3306)/yinni-travel_db?parseTime=true&charset=utf8mb4&loc=Local}
+    ports:
+      - "${BOOKING_HTTP_PORT:-8202}:8202"
+      - "${BOOKING_GRPC_PORT:-9202}:9202"
+    volumes:
+      - ./app/booking/configs:/data/conf:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

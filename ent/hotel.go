@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	"trivgoo-backend/ent/hotel"
+	"yinni-travel-backend/ent/hotel"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"

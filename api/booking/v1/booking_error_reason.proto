@@ -1,0 +1,28 @@
+// api/booking/v1/booking_error_reason.proto
+syntax = "proto3";
+
+package api.booking.v1;
+
+option go_package = "yinni-travel-backend/api/booking/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.booking.v1";
+
+enum ErrorReason {
+    BOOKING_UNSPECIFIED = 0;
+    BOOKING_NOT_FOUND = 1;
+    INVALID_BOOKING_ID = 2;
+    INVALID_USER_ID = 3;
+    INVALID_HOTEL_ID = 4;
+    INVALID_BOOKING_DATE = 5;
+    INVALID_PARAMETERS = 6;
+    UNAUTHORIZED = 7;
+    DATABASE_ERROR = 8;
+    BOOKING_ALREADY_CANCELLED = 9;
+    BOOKING_CREATION_FAILED = 10;
+
+    // Admin booking errors (9000-9999)
+    BOOKING_JOB_NOT_FOUND = 9000;
+    BOOKING_JOB_ALREADY_RUNNING = 9001;
+    BOOKING_JOB_NOT_RUNNING = 9002;
+    BOOKING_JOB_FAILED = 9003;
+}

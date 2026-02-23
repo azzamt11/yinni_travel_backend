@@ -3,7 +3,7 @@ package biz
 import (
 	"context"
 
-	v1 "trivgoo-backend/api/helloworld/v1"
+	v1 "yinni-travel-backend/api/helloworld/v1"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"

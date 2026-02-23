@@ -5,7 +5,7 @@ package hook
 import (
 	"context"
 	"fmt"
-	"trivgoo-backend/ent"
+	"yinni-travel-backend/ent"
 )
 
 // The HotelFunc type is an adapter to allow the use of ordinary

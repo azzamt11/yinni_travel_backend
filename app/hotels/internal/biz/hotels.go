@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	v1 "trivgoo-backend/api/hotels/v1"
+	v1 "yinni-travel-backend/api/hotels/v1"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
@@ -64,6 +64,7 @@ type ListHotelsParams struct {
 
 type HotelsRepo interface {
 	GetHotelsList(context.Context, *ListHotelsParams) ([]*Hotel, int64, error)
+	SeedHotelsDatabase(context.Context, *SeedHotelsParams) (*SeedHotelsResult, error)
 }
 
 type HotelsUsecase struct {
@@ -83,6 +84,29 @@ func (uc *HotelsUsecase) GetHotelsList(ctx context.Context, params *ListHotelsPa
 	}
 
 	return uc.repo.GetHotelsList(ctx, params)
+}
+
+type SeedHotelsParams struct {
+	ClearExisting bool
+	MaxHotels     int32
+	DatasetPath   string
+}
+
+type SeedHotelsResult struct {
+	Seeded  int32
+	Skipped int32
+	Total   int32
+	Message string
+}
+
+func (uc *HotelsUsecase) SeedHotelsDatabase(ctx context.Context, params *SeedHotelsParams) (*SeedHotelsResult, error) {
+	if params == nil {
+		params = &SeedHotelsParams{}
+	}
+	if params.MaxHotels < 0 {
+		params.MaxHotels = 0
+	}
+	return uc.repo.SeedHotelsDatabase(ctx, params)
 }
 
 func (p *ListHotelsParams) Validate() error {

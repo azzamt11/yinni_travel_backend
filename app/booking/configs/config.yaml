@@ -1,0 +1,20 @@
+server:
+  http:
+    addr: ${KRATOS_SERVER_HTTP_ADDR:0.0.0.0:8202}
+    timeout: 30s
+  grpc:
+    addr: ${KRATOS_SERVER_GRPC_ADDR:0.0.0.0:9202}
+    timeout: 30s
+
+auth:
+  jwt_secret: ${KRATOS_AUTH_JWT_SECRET:no-secret}
+  jwt_expire: ${KRATOS_AUTH_JWT_EXPIRE:3600}
+
+data:
+  database:
+    driver: mysql
+    source: ${KRATOS_DATA_DATABASE_SOURCE}
+  redis:
+    addr: 127.0.0.1:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s

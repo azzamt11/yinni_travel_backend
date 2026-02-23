@@ -1,0 +1,19 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init": "npm ci",
+    "api-js": "protoc --proto_path=../../api --proto_path=../../third_party --plugin=protoc-gen-js=./node_modules/protoc-gen-js/bin/protoc-gen-js.exe --js_out=import_style=commonjs,binary:../../api auth/v1/auth.proto",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "grpc-web": "^2.0.2",
+    "protoc-gen-js": "^3.21.4-4"
+  }
+}

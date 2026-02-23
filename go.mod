@@ -1,10 +1,11 @@
-module trivgoo-backend
+module yinni-travel-backend
 
 go 1.25.5
 
 require (
 	entgo.io/ent v0.14.5
 	github.com/go-kratos/kratos/v2 v2.9.2
+	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/google/wire v0.7.0
 	github.com/rs/cors v1.11.1
 	go.uber.org/automaxprocs v1.6.0

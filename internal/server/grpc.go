@@ -1,9 +1,9 @@
 package server
 
 import (
-	v1 "trivgoo-backend/api/helloworld/v1"
-	"trivgoo-backend/internal/conf"
-	"trivgoo-backend/internal/service"
+	v1 "yinni-travel-backend/api/helloworld/v1"
+	"yinni-travel-backend/internal/conf"
+	"yinni-travel-backend/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"

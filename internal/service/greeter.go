@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	v1 "trivgoo-backend/api/helloworld/v1"
-	"trivgoo-backend/internal/biz"
+	v1 "yinni-travel-backend/api/helloworld/v1"
+	"yinni-travel-backend/internal/biz"
 )
 
 // GreeterService is a greeter service.
